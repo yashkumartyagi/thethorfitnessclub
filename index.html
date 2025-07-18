@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Thor Fitness Club</title>
+
+  <style>
+    :root {
+      --yellow: #FFD700;
+      --dark:   #000;
+      --white:  #f0f0f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--dark);
+      color: var(--yellow);
+      line-height: 1.6;
+    }
+
+    #background-video {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      z-index: -1;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    header {
+      background: #000;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-title img {
+      width: 50px;
+      height: 50px;
+    }
+
+    .logo-title h1 {
+      font-size: 1.8em;
+      color: var(--yellow);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 1em;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--yellow);
+    }
+
+    section, footer {
+      padding: 120px 20px 60px;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.2em;
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      max-width: 900px;
+      margin: 0 auto 20px;
+      color: var(--white);
+      font-size: 1.05em;
+    }
+
+    .home-cta {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .home-cta h2 {
+      font-size: 2.8em;
+      color: var(--white);
+      margin-bottom: 30px;
+      line-height: 1.3;
+    }
+
+    .home-cta .join-btn {
+      background: var(--yellow);
+      color: #000;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.3s;
+    }
+
+    .home-cta .join-btn:hover {
+      background: #fff200;
+      transform: scale(1.05);
+    }
+
+    /* ===== ABOUT SECTION ===== */
+    #about {
+      height: 100vh;
+      padding-top: 150px;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #about .about-content {
+      background-color: rgba(0, 0, 0, 0.85);
+      max-width: 800px;
+      padding: 40px 30px;
+      border-radius: 0;
+      border: none;
+    }
+
+    /* ===== TRAINERS ===== */
+    .trainer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .trainer-card {
+      background: #111;
+      border: 1px solid var(--yellow);
+      border-radius: 12px;
+      width: 250px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .trainer-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px var(--yellow);
+    }
+
+    .trainer-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    /* ===== PRICING ===== */
+    .pricing {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .plan {
+      background: #111;
+      border: 1px solid var(--yellow);
+      border-radius: 12px;
+      width: 280px;
+      padding: 25px 20px;
+      transition: transform 0.3s;
+    }
+
+    .plan:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--yellow);
+    }
+
+    /* ===== CONTACT US ===== */
+    #contact {
+      padding: 100px 20px 80px;
+    }
+
+    .contact-box {
+      background: rgba(0, 0, 0, 0.8);
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 500px;
+      margin: 0 auto 20px;
+      box-shadow: 0 0 15px var(--yellow);
+    }
+
+    .contact-box p {
+      font-size: 1em;
+      color: #ddd;
+    }
+
+    /* ===== LOCATION CARD ===== */
+    #location {
+      padding: 100px 20px 80px;
+    }
+
+    .location-card {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 15px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 330px;
+      margin: 0 auto;
+      box-shadow: 0 0 10px var(--yellow);
+    }
+
+    .location-card iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .location-card a {
+      color: var(--yellow);
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    footer {
+      background: #111;
+      color: #aaa;
+      font-size: 0.9em;
+      padding: 30px 20px;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .home-cta h2 {
+        font-size: 2em;
+      }
+
+      h1 { font-size: 2.2em; }
+      h2 { font-size: 1.6em; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Video -->
+  <video autoplay muted loop id="background-video">
+    <source src="images/insideview.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-title">
+      <img src="images/logo.jpg" alt="Thor Logo" />
+      <h1>THE THOR FITNESS CLUB</h1>
+    </div>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#about">About</a>
+      <a href="#trainers">Trainers</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact Us</a>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <div class="home-cta">
+    <h2>Unleash the Beast Within<br>Strength • Discipline • Dedication<br>Are you ready to transform your body and mind?</h2>
+    <a href="#location" class="join-btn">Join Now</a>
+  </div>
+
+  <!-- About Section -->
+  <section id="about">
+    <div class="about-content">
+      <p><strong>The Thor Fitness Club</strong> is not just a gym — it's a lifestyle. Located in the heart of Loni, Ghaziabad, our mission is to empower individuals through fitness and mental strength. Our club offers cutting‑edge equipment, energetic atmosphere, and elite trainers who are committed to your transformation.</p>
+      <p>Whether you're a beginner, intermediate, or pro, we provide personalized fitness programs tailored to your goals. We focus on building strength, stamina, and confidence while keeping your safety and motivation at the core of every session.</p>
+      <p>Come be a part of a community that celebrates discipline, growth, and results — your journey to greatness starts here!</p>
+    </div>
+  </section>
+
+  <!-- Trainers Section -->
+  <section id="trainers">
+    <h2>Meet Our Trainers</h2>
+    <p>Our team of certified fitness professionals bring years of experience in:</p>
+    <p><strong>Bodybuilding • CrossFit • Weight Loss • Cardio Training • Strength Conditioning • Nutrition Coaching</strong></p>
+    <div class="trainer-grid">
+      <div class="trainer-card">
+        <img src="images/trainer-1.jpg" alt="Sandeep Baisoya">
+        <h3>Sandeep Baisoya</h3>
+        <p>Pro Bodybuilder • Strength & Conditioning Coach</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing">
+    <h2>Membership Plans</h2>
+    <div class="pricing">
+      <div class="plan">
+        <h3>Basic Plan</h3>
+        <p>₹999 / month<br>Full Gym Access<br>Locker Facility<br>No Trainer</p>
+      </div>
+      <div class="plan">
+        <h3>Standard Plan</h3>
+        <p>₹1499 / month<br>Gym + Group Classes<br>Trainer Support<br>Fitness Evaluation</p>
+      </div>
+      <div class="plan">
+        <h3>Premium Plan</h3>
+        <p>₹1999 / month<br>All‑Access + Personal Trainer<br>Customized Nutrition Plan<br>Weekly Progress Report</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <div class="contact-box">
+      <h3>Visit Us Today!</h3>
+      <p>📍 Location: Main Road, Loni, Ghaziabad - 201102<br>
+         📧 Email: thorfitnessclub@gmail.com<br>
+         📞 Phone: +91-9876543210<br>
+         🕔 Timing: 5 AM – 10 PM (All days)</p>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section id="location">
+    <h2>Find Us</h2>
+    <div class="location-card">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3506.6790908013113!2d77.30776437522346!3d28.48916147575686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x96835b5f50265283!2sThe%20Thor%20Fitness%20Club!5e0!3m2!1sen!2sin!4v1687888456432!5m2!1sen!2sin"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <p><a href="https://www.google.com/maps/place/The+Thor+Fitness+Club/data=!4m2!3m1!1s0x0:0x96835b5f50265283?sa=X&ved=1t:2428&ictx=111" target="_blank">Click here to open in Google Maps</a></p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2025 The Thor Fitness Club. All Rights Reserved. | Designed with 💪 by @yashkumartyagi_
+  </footer>
+
+</body>
+</html>
